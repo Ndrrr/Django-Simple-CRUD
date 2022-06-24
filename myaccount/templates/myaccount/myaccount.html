@@ -1,0 +1,12 @@
+<html>
+    <head>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        <h2> MY ACCOUNT</h2>
+        <p> <a href="/logout"> Log out </a> </p>
+        {%else %}
+        <p> You have to be logged in in order to see this page <a href="/login">Login </a>/ <a href="/register/"> Register</a></p>
+        {% endif %}
+    </body>
+</html>
