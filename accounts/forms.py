@@ -1,23 +1,19 @@
-from django import forms
-
 from django import forms  
-from django.contrib.auth.models import User  
-from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm  
 from django.core.exceptions import ValidationError  
-from django.forms.fields import EmailField  
-from django.forms.forms import Form  
-  
-class RegisterForm(UserCreationForm):  
+from .models import CustomUser
+
+class CustomUserCreationForm(UserCreationForm):  
     username = forms.CharField(label='username', min_length=3, max_length=150)  
     password1 = forms.CharField(label='password', widget=forms.PasswordInput)  
     password2 = forms.CharField(label='Confirm password', widget=forms.PasswordInput)  
     
     class Meta:
-        model = User
+        model = CustomUser
         fields = ['username']
     def username_clean(self):  
         username = self.cleaned_data['username'].lower()  
-        new = User.objects.filter(username = username)  
+        new = CustomUser.objects.filter(username = username)  
         if new.count():  
             raise ValidationError("User Already Exist")  
         return username  
@@ -31,7 +27,7 @@ class RegisterForm(UserCreationForm):
         return password2  
   
     def save(self, commit = True):  
-        user = User.objects.create_user(  
+        user = CustomUser.objects.create_user(  
             self.cleaned_data['username'],  
         )  
         user.set_password(self.cleaned_data['password1'])
@@ -39,3 +35,8 @@ class RegisterForm(UserCreationForm):
         if commit:
             user.save()
         return user  
+
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username']

@@ -4,6 +4,21 @@
     <body>
         {% if user.is_authenticated %}
         <h2> MY ACCOUNT</h2>
+        <p>username: {{user.username}} </p>
+        {% if user.age %}
+        <p>age : {{user.age}} </p>
+        {% endif %}
+        {% if user.weight %}
+        <p> weight: {{user.weight}} </p>
+        {% endif %}
+        {% if user.height %}
+        <p> height: {{user.height}} </p>
+        {% endif %}
+        <form method="POST" class ="form-group">
+            {% csrf_token%}
+            {{quiz.as_p}}
+            <input type="submit" name="submit" value="Submit" >
+        </form>
         <p> <a href="/logout"> Log out </a> </p>
         {%else %}
         <p> You have to be logged in in order to see this page <a href="/login">Login </a>/ <a href="/register/"> Register</a></p>

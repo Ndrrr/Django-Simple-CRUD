@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'register',
     'myaccount',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,5 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL='/myaccount/'
 LOGOUT_REDIRECT_URL='/'
+
+AUTH_USER_MODEL = 'accounts.CustomUser'

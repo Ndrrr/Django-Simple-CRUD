@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import RegisterForm
+from accounts.forms import CustomUserCreationForm as RegisterForm
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 # Create your views here.
@@ -8,7 +8,7 @@ def register(response):
         form = RegisterForm(response.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/myaccount/")
+            return HttpResponseRedirect("/login/")
         
     else:
         form = RegisterForm()
